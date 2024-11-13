@@ -1,0 +1,362 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Health Chatbot</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+#chat-box {
+    overflow-y: scroll;
+    height: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.user-msg {
+    background-color: #cce5ff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+.bot-msg {
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+#user-input {
+    width: calc(100% - 80px);
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#send-btn {
+    width: 70px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Mental Health Chatbot</h1>
+    <div id="chat-box"></div>
+    <div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+
+    function scrollToBottom() {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function appendUserMessage(message) {
+        const userMsg = document.createElement("div");
+        userMsg.className = "user-msg";
+        userMsg.textContent = message;
+        chatBox.appendChild(userMsg);
+        scrollToBottom();
+    }
+
+    function appendBotMessage(message) {
+        const botMsg = document.createElement("div");
+        botMsg.className = "bot-msg";
+        botMsg.textContent = message;
+        chatBox.appendChild(botMsg);
+        scrollToBottom();
+    }
+
+    function sendUserMessage() {
+        const userMessage = userInput.value.trim();
+        if (userMessage === "") return;
+
+        appendUserMessage(userMessage);
+        userInput.value = "";
+
+        fetch('/get_response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+            appendBotMessage(data.response);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    userInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            sendUserMessage();
+        }
+    });
+
+    sendBtn.addEventListener("click", sendUserMessage);
+});
+</script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var message = document.getElementById("user-input").value;
+            document.getElementById("user-input").value = ""; // Clear input field
+    
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/chat", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+    
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    displayResponse(message, response.response); // Pass message to displayResponse
+                }
+            };
+    
+            var data = JSON.stringify({ message: message });
+            xhr.send(data);
+        }
+    
+        function displayResponse(message, response) { // Add message parameter
+            var chatLog = document.getElementById("chat-log");
+            var userMessage = document.createElement("p");
+            userMessage.textContent = "User: " + message;
+            var botResponse = document.createElement("p");
+            botResponse.textContent = "Bot: " + response;
+            chatLog.appendChild(userMessage);
+            chatLog.appendChild(botResponse);
+        }
+    </script>
+    
+</body>
+</html> -->
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:white;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            margin-top: 50px;
+        }
+
+        #chat-box {
+            overflow-y: scroll;
+            height: 300px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .user-msg {
+            background-color: #cce5ff;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+        }
+
+        .bot-msg {
+            background-color: #e6e6e6;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+        }
+
+        #user-input {
+            width: calc(100% - 80px);
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #send-btn {
+            width: 70px;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+
+        .gtrans{
+
+           
+            text-align: center;
+        }
+   
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Mental Health Chatbot</h1>
+    <div id="chat-box"></div>
+    <div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <br><br>
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+
+<div class ="gtrans" id="trans">
+    <div class="translate"> 
+   <h4>Translate</h4>
+          <div id="google_translate_element"> 
+                       </div>
+         
+   </div>
+   </div>
+
+<!-- Translate script -->
+
+   <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    }
+</script>
+
+<script type="text/javascript"
+        src=
+"https://translate.google.com/translate_a/element.js?
+cb=googleTranslateElementInit">
+</script>
+
+<!-- Translate script end -->
+
+<script>
+    function sendMessage() {
+        var message = document.getElementById("user-input").value;
+        document.getElementById("user-input").value = ""; // Clear input field
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/chat", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                displayResponse(message, response.response); // Pass message to displayResponse
+            }
+        };
+
+        var data = JSON.stringify({ message: message });
+        xhr.send(data);
+    }
+
+    function displayResponse(message, response) { // Add message parameter
+        var chatBox = document.getElementById("chat-box");
+        var userMessage = document.createElement("div");
+        userMessage.className = "user-msg";
+        userMessage.textContent = "User: " + message;
+        var botResponse = document.createElement("div");
+        botResponse.className = "bot-msg";
+        botResponse.textContent = "Bot: " + response;
+        chatBox.appendChild(userMessage);
+        chatBox.appendChild(botResponse);
+    }
+</script>
+</body>
+</html>
